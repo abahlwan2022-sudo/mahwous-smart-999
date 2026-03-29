@@ -13,11 +13,11 @@ COPY . .
 # جعل ملف التشغيل قابلاً للتنفيذ
 RUN chmod +x entrypoint.sh
 
-# تعريف المنفذ الافتراضي
+# تعريف المنفذ الافتراضي (لأغراض التوثيق والتشغيل المحلي)
 ENV PORT=8501
 
 # كشف المنفذ
 EXPOSE 8501
 
-# استخدام shell لتشغيل التطبيق لضمان استبدال متغيرات البيئة بشكل صحيح
-CMD ["sh", "-c", "streamlit run app.py --server.port=${PORT} --server.address=0.0.0.0 --server.headless=true --server.enableCORS=false --server.enableXsrfProtection=false"]
+# استخدام ملف entrypoint.sh لضمان معالجة المتغيرات بشكل صحيح
+ENTRYPOINT ["/bin/sh", "/app/entrypoint.sh"]
